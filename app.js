@@ -5,6 +5,12 @@ const ctx = document.getElementById('myChart');
 let myChart;
 
 
+
+/**
+  * @desc Retrives covid-19 data to display
+  * @param string url - url to fetch data from
+  * @return promise - with data or error.
+*/
 async function getCovidData(url) {
   try {
     const covidData = await fetch(url);
@@ -17,18 +23,31 @@ async function getCovidData(url) {
 }
 
 
+
+/**
+  * @desc Removes data from chart
+  * @param object chart - points to instance of myChart
+  * @return no return
+*/
 function removeData(chart) {
  chart.data.datasets[0].data.splice(0, 4)
  chart.update();
 }
 
 
-function addData(chart, label, data) {
-console.log(data[0])
 
-  chart.data.datasets[0].data.push(data[0].positive, data[0].negative, data[0].hospitalizedCurrently, data[0].death);
+/**
+  * @desc Adds data to chart
+  * @param object chart - points to instance of myChart
+  * @param array data - gets pushed onto chart array.
+  * @return no return
+*/
+function addData(chart, data) {
+  const { positive, negative, hospitalizedCurrently, death } = data[0];
+  console.log(data[0]);
+  chart.data.datasets[0].data.push(positive, negative, hospitalizedCurrently, death);
     chart.update();
-}
+ }
 
 
 
@@ -78,12 +97,16 @@ const { positive, negative, hospitalizedCurrently, death } = totals[0];
 
 
 document.getElementById("state-select").addEventListener("change", e => {
+
+  const optionSelected = e.target.value;
+
   removeData(myChart);
-  getCovidData(statesUrl).then(results => {
 
-  const stateSelected = results.filter(state => state.state === e.target.value);
+  getCovidData(statesUrl).then(allStates => {
 
-  addData(myChart, undefined, stateSelected);
+  const stateSelected = allStates.filter(state => state.state === optionSelected);
+
+  addData(myChart, stateSelected);
 
   });
 });
