@@ -1,5 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background: #005eaa;
+  color: white;
+  padding:20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+h1 {
+  margin: 0;
+
+}
+
 div#container {
-  width: 50%;
+  width: 90%;
   display: block;
   margin: 0 auto;
+}
+
+div#state-container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+
+div#container-two, div#container-three {
+  width: 50%;
+}
+
+div#select-state {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
 }
