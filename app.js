@@ -49,17 +49,20 @@ function addData(chart, data) {
  }
 
 
- function updateChart(optionSelected) {
 
-   removeData(usaChart);
+
+ function updateChart(optionSelected, chart) {
+
+   removeData(chart);
 
    getCovidData(statesUrl).then(allStates => {
 
    const stateSelected = allStates.filter(state => state.state === optionSelected);
 
-   addData(usaChart, stateSelected);
+   addData(chart, stateSelected);
 
    });
+
  }
 
 
@@ -81,8 +84,10 @@ function addData(chart, data) {
 getCovidData(usaUrl).then(totals => {
 
 const totalPositive = totals.slice(0,10).map(day => day.positiveIncrease).reverse();
-//printLastModifiedMessage(lastModified)
-console.log(totalPositive)
+
+ printLastModifiedMessage(totals[0].dateChecked);
+
+
 const usaChart = new Chart(usaCtx, {
      type: 'line',
      data: {
@@ -217,37 +222,27 @@ const chartTwo = new Chart(chart2Ctx, {
 
 
 document.getElementById("select-state").addEventListener("change", e => {
+
   const optionSelected = e.target.value;
 
    if(e.srcElement.id === "state-select-one") {
+
      const select = document.getElementById("state-select-one");
      const selectText = select.options[select.selectedIndex].textContent
 
     chartOne.options.title.text = selectText;
 
-   removeData(chartOne);
+
+  updateChart(optionSelected, chartOne)
 
 
-     getCovidData(statesUrl).then(allStates => {
 
-     const stateSelected = allStates.filter(state => state.state === optionSelected);
-     addData(chartOne, stateSelected);
-   });
  } else {
 
    const select = document.getElementById("state-select-two");
    const selectText = select.options[select.selectedIndex].textContent;
 
   chartTwo.options.title.text = selectText;
-
-   removeData(chartTwo);
-
-     getCovidData(statesUrl).then(allStates => {
-
-     const stateSelected = allStates.filter(state => state.state === optionSelected);
-
-     addData(chartTwo, stateSelected);
-
- });
+  updateChart(optionSelected, chartTwo);
 }
 });
