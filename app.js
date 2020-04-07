@@ -26,7 +26,7 @@ async function getCovidData(url) {
 
 /**
   * @desc Removes data from chart
-  * @param object chart - points to instance of myChart
+  * @param object chart - points to instance of specific chart
   * @return no return
 */
 function removeData(chart) {
@@ -38,7 +38,7 @@ function removeData(chart) {
 
 /**
   * @desc Adds data to chart
-  * @param object chart - points to instance of myChart
+  * @param object chart - points to instance of specific chart
   * @param array data - gets pushed onto chart array.
   * @return no return
 */
@@ -50,7 +50,12 @@ function addData(chart, data) {
 
 
 
-
+ /**
+   * @desc Calls multiple functions to update single chart
+   * @param string optionSelected - State name
+   * @param object chart - points to instance of specific chart
+   * @return no return
+ */
  function updateChart(optionSelected, chart) {
 
    removeData(chart);
@@ -61,11 +66,20 @@ function addData(chart, data) {
 
    addData(chart, stateSelected);
 
-   });
+ });
+
+   printStateName(chart);
 
  }
 
 
+
+ /**
+   * @desc Adds data to chart
+   * @param object chart - points to instance of specific chart
+   * @param array data - gets pushed onto chart array.
+   * @return no return
+ */
  function formatsDateAndTime(date) {
    const [year, month, day] = date.slice(0,10).split("-");
    const time = date.slice(11,19);
@@ -73,9 +87,38 @@ function addData(chart, data) {
 
  }
 
+
+
+ /**
+   * @desc Prints last updated date
+   * @param string date - String that is formated => 04-06-2020 20:00:00
+   * @return no return
+ */
  function printLastModifiedMessage(date) {
     document.getElementById("last-updated").textContent =   formatsDateAndTime(date);
+ }
 
+
+
+ /**
+   * @desc Prints selected state to chart title
+   * @param chart chart - points to instance of specific chart
+   * @return no return
+ */
+ function printStateName(chart) {
+  chart.options.title.text = getSelectedOptionText()
+ }
+
+
+
+ /**
+   * @desc Retrieves state selection option name
+   * @return String - State name i.e. California
+ */
+ function getSelectedOptionText(){
+   const select = document.getElementById("state-select-one");
+   const selectText = select.options[select.selectedIndex].textContent
+   return selectText;
  }
 
 
@@ -227,22 +270,10 @@ document.getElementById("select-state").addEventListener("change", e => {
 
    if(e.srcElement.id === "state-select-one") {
 
-     const select = document.getElementById("state-select-one");
-     const selectText = select.options[select.selectedIndex].textContent
-
-    chartOne.options.title.text = selectText;
-
-
-  updateChart(optionSelected, chartOne)
-
-
+    updateChart(optionSelected, chartOne);
 
  } else {
 
-   const select = document.getElementById("state-select-two");
-   const selectText = select.options[select.selectedIndex].textContent;
-
-  chartTwo.options.title.text = selectText;
-  updateChart(optionSelected, chartTwo);
+   updateChart(optionSelected, chartTwo);
 }
 });
