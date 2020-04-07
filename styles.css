@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   margin: 0;
   font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif"
@@ -32,9 +37,13 @@ h2 {
 
 footer {
   background: #005eaa;
-  height: 200px;
-  padding: 20px;
+  position: absolute;
   color: white;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
 }
 
 a {
@@ -45,7 +54,6 @@ a {
 
 ul {
   list-style-type: none;
-  
   text-align: center;
 }
 
@@ -71,10 +79,12 @@ div#state-container {
   display: flex;
   margin: auto;
   width: 90%;
+  margin-bottom: 150px;
 }
 
 div#select-state {
   display: flex;
   justify-content: space-around;
   padding: 30px;
+
 }
