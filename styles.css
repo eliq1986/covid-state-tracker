@@ -29,8 +29,35 @@ h2 {
   font-size: 27px;
 }
 
+
+footer {
+  background: #005eaa;
+  height: 200px;
+  padding: 20px;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+
+}
+
+ul {
+  list-style-type: none;
+  
+  text-align: center;
+}
+
 div.canvas-container {
   width: 50%;
+}
+
+div#container {
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
 }
 
 
@@ -42,8 +69,8 @@ main#usa-container {
 
 div#state-container {
   display: flex;
-  width: 90%;
   margin: auto;
+  width: 90%;
 }
 
 div#select-state {

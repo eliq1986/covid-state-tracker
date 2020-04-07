@@ -68,7 +68,7 @@ function addData(chart, data) {
 
  });
 
-   printStateName(chart);
+
 
  }
 
@@ -109,8 +109,8 @@ function addData(chart, data) {
    * @param chart chart - points to instance of specific chart
    * @return no return
  */
- function printStateName(chart) {
-  chart.options.title.text = getSelectedOptionText()
+ function printStateName(chart, elementId) {
+  chart.options.title.text = getSelectedOptionText(elementId)
  }
 
 
@@ -119,8 +119,8 @@ function addData(chart, data) {
    * @desc Retrieves state selection option name
    * @return String - State name i.e. California
  */
- function getSelectedOptionText(){
-   const select = document.getElementById("state-select-one");
+ function getSelectedOptionText(elementId){
+   const select = document.getElementById(elementId);
    const selectText = select.options[select.selectedIndex].textContent
    return selectText;
  }
@@ -277,9 +277,12 @@ document.getElementById("select-state").addEventListener("change", e => {
    if(e.srcElement.id === "state-select-one") {
 
     updateChart(optionSelected, chartOne);
+    printStateName(chartOne, e.srcElement.id);
 
  } else {
 
    updateChart(optionSelected, chartTwo);
+   printStateName(chartTwo, e.srcElement.id);
+
 }
 });
