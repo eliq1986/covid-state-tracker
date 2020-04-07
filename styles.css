@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif"
 }
 
 header {
@@ -19,6 +20,13 @@ header {
 h1 {
   margin: 0;
 
+}
+
+h2 {
+  text-align: center;
+  color: #666;
+  font-weight: bold;
+  font-size: 27px;
 }
 
 div#container {

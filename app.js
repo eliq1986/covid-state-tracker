@@ -80,6 +80,7 @@ function addData(chart, data) {
 
 
 getCovidData(usaUrl).then(totals => {
+
 const { positive, negative, hospitalizedCurrently, death, lastModified } = totals[0];
 printLastModifiedMessage(lastModified)
 
@@ -132,30 +133,28 @@ const usaChart = new Chart(usaCtx, {
 const chartOne = new Chart(chart1Ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ["Positive", "Negative", "Currently Hospitalized", "Death"],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(75, 192, 192, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(75, 192, 192, 1)'
             ],
             borderWidth: 1
         }]
     },
     options: {
+      legend: {
+        display: false
+      },
       responsive: true,
       maintainAspectRatio: false,
         scales: {
@@ -173,30 +172,28 @@ const chartOne = new Chart(chart1Ctx, {
 const chartTwo = new Chart(chart2Ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ["Positive", "Negative", "Currently Hospitalized", "Death"],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(75, 192, 192, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(75, 192, 192, 1)'
             ],
             borderWidth: 1
         }]
     },
     options: {
+      legend: {
+        display: false
+      },
       responsive: true,
       maintainAspectRatio: false,
         scales: {
@@ -211,7 +208,26 @@ const chartTwo = new Chart(chart2Ctx, {
 
 
 document.getElementById("select-state").addEventListener("change", e => {
+  const optionSelected = e.target.value;
 
+  if(e.srcElement.id === "state-select-one") {
+   removeData(chartOne);
 
+     getCovidData(statesUrl).then(allStates => {
 
+     const stateSelected = allStates.filter(state => state.state === optionSelected);
+
+     addData(chartOne, stateSelected);
+   });
+ } else {
+   removeData(chartTwo);
+
+     getCovidData(statesUrl).then(allStates => {
+
+     const stateSelected = allStates.filter(state => state.state === optionSelected);
+
+     addData(chartTwo, stateSelected);
+
+ });
+}
 });
