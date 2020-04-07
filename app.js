@@ -1,5 +1,5 @@
 const statesUrl = "https://covidtracking.com/api/states";
-const usaUrl = "https://covidtracking.com/api/v1/us/current.json";
+const usaUrl = "https://covidtracking.com/api/us/daily";
 const usaCtx = document.getElementById("usa-chart");
 const chart1Ctx = document.getElementById("chart-one");
 const chart2Ctx = document.getElementById("chart-two");
@@ -64,7 +64,6 @@ function addData(chart, data) {
 
 
  function formatsDateAndTime(date) {
-   console.log(date);
    const [year, month, day] = date.slice(0,10).split("-");
    const time = date.slice(11,19);
    return `Last Updated: ${month}-${day}-${year} ${time}`;
@@ -81,16 +80,16 @@ function addData(chart, data) {
 
 getCovidData(usaUrl).then(totals => {
 
-const { positive, negative, hospitalizedCurrently, death, lastModified } = totals[0];
-printLastModifiedMessage(lastModified)
-
+const totalPositive = totals.slice(0,10).map(day => day.positiveIncrease).reverse();
+//printLastModifiedMessage(lastModified)
+console.log(totalPositive)
 const usaChart = new Chart(usaCtx, {
-     type: 'bar',
+     type: 'line',
      data: {
-         labels: ["Positive", "Negative", "Currently Hospitalized", "Death"],
+         labels: ["10 days","9 days","8 days","7 days","6 days","5 days","4 days","3 days" , "Yesterday","Today"],
          datasets: [{
 
-             data: [positive, negative, hospitalizedCurrently, death],
+             data: [...totalPositive],
              backgroundColor: [
                  'rgba(54, 162, 235, 0.2)',
                  'rgba(255, 206, 86, 0.2)',
@@ -127,7 +126,7 @@ const usaChart = new Chart(usaCtx, {
          }
      }
   });
-});
+ });
 
 
 const chartOne = new Chart(chart1Ctx, {
@@ -154,6 +153,11 @@ const chartOne = new Chart(chart1Ctx, {
     options: {
       legend: {
         display: false
+      },
+      title: {
+        fontSize: 20,
+        display: true,
+        text: ""
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -194,6 +198,11 @@ const chartTwo = new Chart(chart2Ctx, {
       legend: {
         display: false
       },
+      title: {
+        fontSize: 20,
+        display: true,
+        text: ""
+      },
       responsive: true,
       maintainAspectRatio: false,
         scales: {
@@ -210,16 +219,27 @@ const chartTwo = new Chart(chart2Ctx, {
 document.getElementById("select-state").addEventListener("change", e => {
   const optionSelected = e.target.value;
 
-  if(e.srcElement.id === "state-select-one") {
+   if(e.srcElement.id === "state-select-one") {
+     const select = document.getElementById("state-select-one");
+     const selectText = select.options[select.selectedIndex].textContent
+
+    chartOne.options.title.text = selectText;
+
    removeData(chartOne);
+
 
      getCovidData(statesUrl).then(allStates => {
 
      const stateSelected = allStates.filter(state => state.state === optionSelected);
-
      addData(chartOne, stateSelected);
    });
  } else {
+
+   const select = document.getElementById("state-select-two");
+   const selectText = select.options[select.selectedIndex].textContent;
+
+  chartTwo.options.title.text = selectText;
+
    removeData(chartTwo);
 
      getCovidData(statesUrl).then(allStates => {
