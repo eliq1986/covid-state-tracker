@@ -80,8 +80,12 @@ function addData(chart, data) {
    * @param array data - gets pushed onto chart array.
    * @return no return
  */
- function formatsDateAndTime(date) {
+ function formatsDateAndTime(date, stateBool) {
+
    const [year, month, day] = date.slice(0,10).split("-");
+  if(stateBool) {
+    return `${month}/${day}`
+  }
    const time = date.slice(11,19);
    return `Last Updated: ${month}-${day}-${year} ${time}`;
 
@@ -126,7 +130,9 @@ function addData(chart, data) {
 
 getCovidData(usaUrl).then(totals => {
 
-const totalPositive = totals.slice(0,10).map(day => day.positiveIncrease).reverse();
+const lastTenDays = totals.slice(0,30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
+
+const totalPositive = totals.slice(0,30).map(day => day.positiveIncrease).reverse();
 
  printLastModifiedMessage(totals[0].dateChecked);
 
@@ -134,7 +140,7 @@ const totalPositive = totals.slice(0,10).map(day => day.positiveIncrease).revers
 const usaChart = new Chart(usaCtx, {
      type: 'line',
      data: {
-         labels: ["10 days","9 days","8 days","7 days","6 days","5 days","4 days","3 days" , "Yesterday","Today"],
+         labels: [...lastTenDays],
          datasets: [{
 
              data: [...totalPositive],
