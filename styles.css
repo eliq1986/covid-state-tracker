@@ -29,6 +29,11 @@ h2 {
   font-size: 27px;
 }
 
+div.canvas-container {
+  width: 50%;
+}
+
+
 main#usa-container {
   width: 90%;
   display: block;
@@ -39,10 +44,6 @@ div#state-container {
   display: flex;
   width: 90%;
   margin: auto;
-}
-
-div#container-two, div#container-three {
-  width: 50%;
 }
 
 div#select-state {
