@@ -127,16 +127,34 @@ function addData(chart, data) {
 
 
 
+ /**
+   * @desc Formats USA data
+   * @param array - last 28 days COVID-19 USA data
+   * @return object - contains properties with USA data
+  */
+function formatLastTwentyEightDaysData(usaData) {
+
+  const lastTwentyEightDays = usaData.slice(0,30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
+
+  const totalPositive = usaData.slice(0,30).map(day => day.positiveIncrease).reverse();
+  const totalNegative = usaData.slice(0, 30).map(day => day.negativeIncrease).reverse();
+  const hospitalizedCurrently = usaData.slice(0, 30).map(day => day.hospitalizedCurrently).reverse();
+  const deathIncrease = usaData.slice(0, 30).map(day => day.deathIncrease).reverse();
+
+  return {
+    lastTwentyEightDays,
+    totalPositive,
+    totalNegative,
+    hospitalizedCurrently,
+    deathIncrease
+  }
+}
+
+
 
 getCovidData(usaUrl).then(totals => {
-console.log(totals);
 
-
-const lastTwentyEightDays = totals.slice(0,30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
-const totalPositive = totals.slice(0,30).map(day => day.positiveIncrease).reverse();
-const totalNegative = totals.slice(0, 30).map(day => day.negativeIncrease).reverse();
-const hospitalizedCurrently = totals.slice(0, 30).map(day => day.hospitalizedCurrently).reverse();
-const deathIncrease = totals.slice(0, 30).map(day => day.deathIncrease).reverse();
+ const { lastTwentyEightDays, totalPositive, totalNegative, hospitalizedCurrently, deathIncrease } = formatLastTwentyEightDaysData(totals);
 
 
  printLastModifiedMessage(totals[0].dateChecked);
