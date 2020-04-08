@@ -142,7 +142,7 @@ const usaChart = new Chart(usaCtx, {
      data: {
          labels: [...lastTenDays],
          datasets: [{
-
+             label: "# of Positive Cases",
              data: [...totalPositive],
              backgroundColor: [
                  'rgba(54, 162, 235, 0.2)',
@@ -163,7 +163,7 @@ const usaChart = new Chart(usaCtx, {
        responsive: true,
        maintainAspectRatio: false,
        legend: {
-         display: false
+         display: true
        },
        title: {
          fontSize: 30,
