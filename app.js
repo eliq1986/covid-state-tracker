@@ -129,10 +129,15 @@ function addData(chart, data) {
 
 
 getCovidData(usaUrl).then(totals => {
+console.log(totals);
 
-const lastTenDays = totals.slice(0,30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
 
+const lastTwentyEightDays = totals.slice(0,30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
 const totalPositive = totals.slice(0,30).map(day => day.positiveIncrease).reverse();
+const totalNegative = totals.slice(0, 30).map(day => day.negativeIncrease).reverse();
+const hospitalizedCurrently = totals.slice(0, 30).map(day => day.hospitalizedCurrently).reverse();
+const deathIncrease = totals.slice(0, 30).map(day => day.deathIncrease).reverse();
+
 
  printLastModifiedMessage(totals[0].dateChecked);
 
@@ -140,24 +145,40 @@ const totalPositive = totals.slice(0,30).map(day => day.positiveIncrease).revers
 const usaChart = new Chart(usaCtx, {
      type: 'line',
      data: {
-         labels: [...lastTenDays],
+         labels: [...lastTwentyEightDays],
          datasets: [{
-             label: "# of Positive Cases",
+             label: "# Increase of Positive Cases",
+             fill: false,
              data: [...totalPositive],
-             backgroundColor: [
-                 'rgba(54, 162, 235, 0.2)',
-                 'rgba(255, 206, 86, 0.2)',
-                 'rgba(75, 192, 192, 0.2)',
-                 'rgba(255, 99, 132, 0.2)'
-             ],
-             borderColor: [
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(255, 99, 132, 1)',
-             ],
-             borderWidth: 1
-         }]
+             backgroundColor:['rgba(54, 162, 235, 0.2)'],
+             borderColor:['rgba(54, 162, 235, 1)']
+
+         },
+         {
+             label: "# Increase Of Negative Tests",
+             fill: false,
+             data: [...totalNegative],
+             backgroundColor:['rgba(75, 192, 192, 0.2)'],
+             borderColor:['rgba(75, 192, 192, 1)']
+           },
+
+         {
+             label: "# of Currently Hospitalized",
+             fill: false,
+             data: [...hospitalizedCurrently],
+             backgroundColor:['rgba(255, 206, 86, 0.2)'],
+             borderColor:['rgba(255, 206, 86, 1)']
+
+          },
+         {
+             label: "# Death Increase",
+             fill: false,
+             data: [...deathIncrease],
+             backgroundColor:['rgba(255, 99, 132, 0.2)'],
+             borderColor:['rgba(255, 99, 132, 1)']
+
+           }
+       ]
      },
      options: {
        responsive: true,
@@ -190,16 +211,16 @@ const chartOne = new Chart(chart1Ctx, {
         datasets: [{
             data: [],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 99, 132, 0.2)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 99, 132, 1)'
             ],
             borderWidth: 1
         }]
@@ -234,16 +255,16 @@ const chartTwo = new Chart(chart2Ctx, {
         datasets: [{
             data: [],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 99, 132, 0.2)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 99, 132, 1)'
             ],
             borderWidth: 1
         }]
