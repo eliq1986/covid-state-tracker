@@ -1,5 +1,8 @@
 const statesUrl = "https://covidtracking.com/api/states";
 const usaUrl = "https://covidtracking.com/api/us/daily";
+const statesDailyUrl = "https://covidtracking.com/api/v1/states/daily.json";
+
+
 const usaCtx = document.getElementById("usa-chart");
 const chart1Ctx = document.getElementById("chart-one");
 const chart2Ctx = document.getElementById("chart-two");
@@ -12,7 +15,7 @@ const chart2Ctx = document.getElementById("chart-two");
   * @return promise - with data or error.
 */
 async function getCovidData(url) {
-  try {
+    try {
     const covidData = await fetch(url);
     const covidJson = await covidData.json();
     return covidJson;
@@ -21,7 +24,6 @@ async function getCovidData(url) {
   }
 
 }
-
 
 
 /**
@@ -43,8 +45,17 @@ function removeData(chart) {
   * @return no return
 */
 function addData(chart, data) {
-  const { positive, negative, hospitalizedCurrently, death } = data[0];
-  chart.data.datasets[0].data.push(positive, negative, hospitalizedCurrently, death);
+console.log(data)
+  const dates = formatLastTwentyEightDaysData(data);
+  console.log(dates)
+  const { lastTwentyEightDays, totalPositive, totalNegative, deathIncrease, hospitalizedCurrently } = dates;
+
+    chart.data.labels = [...lastTwentyEightDays]
+    chart.data.datasets[0].data = [...totalPositive]
+    chart.data.datasets[1].data = [...totalNegative];
+    chart.data.datasets[2].data = [...hospitalizedCurrently];
+    chart.data.datasets[3].data = [...deathIncrease];
+
   chart.update();
  }
 
@@ -60,14 +71,11 @@ function addData(chart, data) {
 
    removeData(chart);
 
-   getCovidData(statesUrl).then(allStates => {
+   getCovidData(statesDailyUrl).then(data => {
+     const stateSelectedData = data.filter(state => state.state === optionSelected);
+     addData(chart, stateSelectedData);
 
-   const stateSelected = allStates.filter(state => state.state === optionSelected);
-
-   addData(chart, stateSelected);
-
- });
-
+   });
 
 
  }
@@ -140,7 +148,6 @@ function formatLastTwentyEightDaysData(usaData) {
   const totalNegative = usaData.slice(0, 30).map(day => day.negativeIncrease).reverse();
   const hospitalizedCurrently = usaData.slice(0, 30).map(day => day.hospitalizedCurrently).reverse();
   const deathIncrease = usaData.slice(0, 30).map(day => day.deathIncrease).reverse();
-
   return {
     lastTwentyEightDays,
     totalPositive,
@@ -223,37 +230,50 @@ const usaChart = new Chart(usaCtx, {
 
 
 const chartOne = new Chart(chart1Ctx, {
-    type: 'bar',
+    type: "line",
     data: {
-        labels: ["Positive", "Negative", "Currently Hospitalized", "Death"],
+        labels: [],
         datasets: [{
-            data: [],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
+          label: "# Increase of Positive Cases",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(54, 162, 235, 0.2)'],
+          borderColor:['rgba(54, 162, 235, 1)']
+        },
+        {
+          label: "# Increase Of Negative Tests",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(75, 192, 192, 0.2)'],
+          borderColor:['rgba(75, 192, 192, 1)']
+        },
+        {
+          label: "# of Currently Hospitalized",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(255, 206, 86, 0.2)'],
+          borderColor:['rgba(255, 206, 86, 1)']
+        },
+        {
+          label: "# Death Increase",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(255, 99, 132, 0.2)'],
+          borderColor:['rgba(255, 99, 132, 1)']
         }]
     },
     options: {
-      legend: {
-        display: false
-      },
-      title: {
-        fontSize: 20,
-        display: true,
-        text: ""
-      },
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+        display: true
+      },
+      title: {
+        fontSize: 30,
+        display: true,
+        text: "STATE"
+      },
+
         scales: {
             yAxes: [{
                 ticks: {
@@ -267,37 +287,50 @@ const chartOne = new Chart(chart1Ctx, {
 
 
 const chartTwo = new Chart(chart2Ctx, {
-    type: 'bar',
+    type: "line",
     data: {
-        labels: ["Positive", "Negative", "Currently Hospitalized", "Death"],
+        labels: [],
         datasets: [{
-            data: [],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
+          label: "# Increase of Positive Cases",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(54, 162, 235, 0.2)'],
+          borderColor:['rgba(54, 162, 235, 1)']
+        },
+        {
+          label: "# Increase Of Negative Tests",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(75, 192, 192, 0.2)'],
+          borderColor:['rgba(75, 192, 192, 1)']
+        },
+        {
+          label: "# of Currently Hospitalized",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(255, 206, 86, 0.2)'],
+          borderColor:['rgba(255, 206, 86, 1)']
+        },
+        {
+          label: "# Death Increase",
+          fill: false,
+          data: [],
+          backgroundColor:['rgba(255, 99, 132, 0.2)'],
+          borderColor:['rgba(255, 99, 132, 1)']
         }]
     },
     options: {
-      legend: {
-        display: false
-      },
-      title: {
-        fontSize: 20,
-        display: true,
-        text: ""
-      },
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+        display: true
+      },
+      title: {
+        fontSize: 30,
+        display: true,
+        text: "STATE"
+      },
+
         scales: {
             yAxes: [{
                 ticks: {
@@ -309,12 +342,14 @@ const chartTwo = new Chart(chart2Ctx, {
 });
 
 
+
+
 document.getElementById("select-state").addEventListener("change", e => {
 
   const optionSelected = e.target.value;
 
-   if(e.srcElement.id === "state-select-one") {
 
+   if(e.srcElement.id === "state-select-one") {
     updateChart(optionSelected, chartOne);
     printStateName(chartOne, e.srcElement.id);
 
