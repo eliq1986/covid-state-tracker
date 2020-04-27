@@ -45,9 +45,7 @@ function removeData(chart) {
   * @return no return
 */
 function addData(chart, data) {
-console.log(data)
   const dates = formatLastTwentyEightDaysData(data);
-  console.log(dates)
   const { lastTwentyEightDays, totalPositive, totalNegative, deathIncrease, hospitalizedCurrently } = dates;
 
     chart.data.labels = [...lastTwentyEightDays]
@@ -158,7 +156,7 @@ function formatLastTwentyEightDaysData(usaData) {
 }
 
 
-
+// Main chart USA
 getCovidData(usaUrl).then(totals => {
 
  const { lastTwentyEightDays, totalPositive, totalNegative, hospitalizedCurrently, deathIncrease } = formatLastTwentyEightDaysData(totals);
@@ -229,6 +227,8 @@ const usaChart = new Chart(usaCtx, {
  });
 
 
+
+//chart 1; lower left
 const chartOne = new Chart(chart1Ctx, {
     type: "line",
     data: {
@@ -286,6 +286,8 @@ const chartOne = new Chart(chart1Ctx, {
 
 
 
+
+// chart 2; lower right
 const chartTwo = new Chart(chart2Ctx, {
     type: "line",
     data: {
@@ -347,16 +349,17 @@ const chartTwo = new Chart(chart2Ctx, {
 document.getElementById("select-state").addEventListener("change", e => {
 
   const optionSelected = e.target.value;
+  const parentOptionId = e.srcElement.id;
 
 
    if(e.srcElement.id === "state-select-one") {
     updateChart(optionSelected, chartOne);
-    printStateName(chartOne, e.srcElement.id);
+    printStateName(chartOne, parentOptionId);
 
  } else {
 
    updateChart(optionSelected, chartTwo);
-   printStateName(chartTwo, e.srcElement.id);
+   printStateName(chartTwo, parentOptionId);
 
 }
 });
