@@ -45,16 +45,16 @@ function removeData(chart) {
   * @return no return
 */
 function addData(chart, data) {
-  const dates = formatLastTwentyEightDaysData(data);
-  const { lastTwentyEightDays, totalPositive, totalNegative, deathIncrease, hospitalizedCurrently } = dates;
+  const last28DaysData = formatLastTwentyEightDaysData(data);
+  const {lastTwentyEightDays, totalPositive, totalNegative, deathIncrease, hospitalizedCurrently } = last28DaysData;
 
     chart.data.labels = [...lastTwentyEightDays]
-    chart.data.datasets[0].data = [...totalPositive]
+    chart.data.datasets[0].data = [...totalPositive];
     chart.data.datasets[1].data = [...totalNegative];
     chart.data.datasets[2].data = [...hospitalizedCurrently];
     chart.data.datasets[3].data = [...deathIncrease];
 
-  chart.update();
+    chart.update();
  }
 
 
@@ -146,6 +146,7 @@ function formatLastTwentyEightDaysData(usaData) {
   const totalNegative = usaData.slice(0, 30).map(day => day.negativeIncrease).reverse();
   const hospitalizedCurrently = usaData.slice(0, 30).map(day => day.hospitalizedCurrently).reverse();
   const deathIncrease = usaData.slice(0, 30).map(day => day.deathIncrease).reverse();
+
   return {
     lastTwentyEightDays,
     totalPositive,
