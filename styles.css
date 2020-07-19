@@ -36,7 +36,10 @@ h2 {
 
 h4 {
   color: #666;
+  text-align: center;
+  margin: 15px;
 }
+
 
 
 footer {
@@ -77,6 +80,10 @@ div#container {
 
 }
 
+div.canvas-container {
+  width: 95%;
+}
+
 
 main#usa-container {
   width: 90%;
@@ -86,10 +93,11 @@ main#usa-container {
 
 div#state-container {
   display: flex;
-  margin: auto;
-  width: 90%;
-  margin-bottom: 150px;
+  flex-direction: column;
+  align-items: center;
 }
+
+
 
 div#select-state {
   display: flex;
@@ -99,7 +107,12 @@ div#select-state {
 }
 
 div#widget-container {
+  width: 95%;
+  margin: 40px auto;
   display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
+  flex-direction: column;
+  background: #ededed;
+  border-radius: 20px;
+  box-shadow: 0 6px 6px -6px black;
+  text-transform:  uppercase;
 }
