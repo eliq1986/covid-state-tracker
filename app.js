@@ -119,8 +119,8 @@
     if (stateBool) {
       return `${month}/${day}`
     }
-    const time = date.slice(11, 19);
-    return `Last Updated: ${month}-${day}-${year} ${time}`;
+
+    return `Last Updated: ${month}-${day}-${year}`;
 
   }
 
