@@ -9,7 +9,9 @@ html {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif"
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  background: #ededed;
+
 }
 
 header {
@@ -33,7 +35,7 @@ h2{
   font-weight: bold;
   font-size: 27px;
   padding: 20px;
-  margin-bottom: 50px;
+
 }
 
 h4 {
@@ -72,7 +74,7 @@ div.canvas-container {
 }
 
 div.widget {
-  padding: 5px;
+  padding: 3px;
 
 }
 
@@ -90,7 +92,9 @@ div.canvas-container {
 }
 
 div.choose-state-container {
-  width: 100%;
+  width: 90%;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 
@@ -98,6 +102,9 @@ main#usa-container {
   width: 90%;
   display: block;
   margin: 0 auto;
+  background: #FFFFFF;
+  padding: 20px;
+
 }
 
 div#state-container {
@@ -107,22 +114,18 @@ div#state-container {
   text-align: center;
 }
 
-
-
-div#select-state {
-  display: flex;
-  justify-content: space-around;
-  padding: 30px;
-
-}
-
-div#widget-container {
-  width: 95%;
-  margin: 40px auto;
-  display: flex;
-  flex-direction: column;
-  background: #ededed;
+div#widget-container, main#usa-container, div.choose-state-container {
+  background: #FFFFFF;
   border-radius: 20px;
   box-shadow: 0 6px 6px -6px black;
+}
+
+
+div#widget-container {
+  width: 90%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
   text-transform:  uppercase;
+
 }
