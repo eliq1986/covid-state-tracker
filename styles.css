@@ -27,16 +27,18 @@ h1 {
 
 }
 
-h2 {
+h2{
   text-align: center;
   color: #666;
   font-weight: bold;
   font-size: 27px;
+  padding: 20px;
+  margin-bottom: 50px;
 }
 
 h4 {
-  color: #666;
   text-align: center;
+  color: #666;
   margin: 15px;
 }
 
@@ -62,10 +64,11 @@ a {
 ul {
   list-style-type: none;
   text-align: center;
+  padding: 0;
 }
 
 div.canvas-container {
-  width: 50%;
+  margin: 50px auto;
 }
 
 div.widget {
@@ -77,11 +80,17 @@ div#container {
   width: 100%;
   margin: auto;
   max-width: 1200px;
+  margin-bottom: 100px;
 
 }
 
 div.canvas-container {
   width: 95%;
+  margin-bottom: 50px;
+}
+
+div.choose-state-container {
+  width: 100%;
 }
 
 
@@ -95,6 +104,7 @@ div#state-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 

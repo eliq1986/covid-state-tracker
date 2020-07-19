@@ -382,8 +382,8 @@
 
 
 
-  document.getElementById("select-state").addEventListener("change", e => {
-
+  document.querySelector("div#state-container").addEventListener("change", e => {
+    console.log(e.target)
     const optionSelected = e.target.value;
     const parentOptionId = e.srcElement.id;
 
