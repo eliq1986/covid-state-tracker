@@ -1,7 +1,7 @@
 # COVID-19 TRACKER
 
 
-App for tracking  positive COVID-19 test in the USA for the last 28 days. The site pulls data every hour. It also includes side by side State comparison bar graph. Currently only includes desktop view but will include mobile view in the near future.
+Responsive App for tracking  positive COVID-19 test in the USA for the last 28 days. The site pulls data every hour. It also includes side by side State comparison bar graph. Mobile first build
 
 [Live  Demo
 ](https://covid-state-tracker.now.sh/)
