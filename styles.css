@@ -78,13 +78,6 @@ div.widget {
 
 }
 
-div#container {
-  width: 100%;
-  margin: auto;
-  max-width: 1200px;
-  margin-bottom: 100px;
-
-}
 
 div.canvas-container {
   width: 95%;
@@ -97,6 +90,13 @@ div.choose-state-container {
   margin-bottom: 20px;
 }
 
+div#container {
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+  margin-bottom: 100px;
+
+}
 
 main#usa-container {
   width: 90%;
@@ -127,5 +127,37 @@ div#widget-container {
   display: flex;
   flex-direction: column;
   text-transform:  uppercase;
+
+}
+
+
+@media (min-width: 1000px) {
+
+
+  div.choose-state-container {
+    width: 45%;
+  }
+
+
+  div#widget-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+
+  }
+
+  div#state-container {
+    flex-direction: row;
+    justify-content:space-around;
+  }
+
+  main#usa-container, div#widget-container {
+    width: 95%;
+  }
+
+
+
+
 
 }
