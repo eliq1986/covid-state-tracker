@@ -38,26 +38,45 @@
 
 
   /**
-   * @desc Removes data from chart
-   * @param object chart - points to instance of specific chart
+   * @desc Add data to widget
+   * @param array usaData - grabs data for widget use.
    * @return no return
    */
-  function addWidgetData(usaData) {
-    console.log(usaData)
-    const {
-      death,
-      hospitalizedCumulative,
-      positive,
-      recovered
-    } = usaData[0];
-    const widgets = document.querySelectorAll("h4 span");
-    widgets[0].textContent = death;
-    widgets[1].textContent = hospitalizedCumulative;
-    widgets[2].textContent = positive;
-    widgets[3].textContent = recovered;
+  function getWidgetData(usaData) {
+    formatWidget(usaData[0]);
+  }
+
+
+  /**
+   * @desc
+   * @param array usaData - grabs data for widget use.
+   * @return no return
+   */
+  function formatWidget(usaData) {
+    const widgetTitles = ["death", "hospitalizedCumulative", "positive", "recovered"];
+
+    widgetTitles.forEach((widgetTitle, index) => {
+      const widgetPlaceholder = widgetTitle === "hospitalizedCumulative" ? "hospitalized" : widgetTitle;
+      const widgetTemplate = createWidgetTemplate(widgetTitle, usaData);
+      appendWidget(widgetTemplate);
+
+    });
 
   }
 
+
+
+  function createWidgetTemplate(title, amount) {
+    return `  <div class="widget">
+                    <h4>Total ${title.toUpperCase()}: <span>${amount[title]}</span></h4>
+               </div>`;
+  }
+
+
+  function appendWidget(widgetToAppend) {
+    const widgetContainer = document.querySelector("#widget-container");
+    widgetContainer.insertAdjacentHTML("beforeend", widgetToAppend);
+  }
 
 
 
@@ -169,7 +188,7 @@
    * @return object - contains properties with USA data
    */
   function formatLastTwentyEightDaysData(usaData) {
-    addWidgetData(usaData);
+    getWidgetData(usaData);
     const lastTwentyEightDays = usaData.slice(0, 30).map(eachDay => formatsDateAndTime(eachDay.dateChecked, true)).reverse();
 
     const totalPositive = usaData.slice(0, 30).map(day => day.positiveIncrease).reverse();
