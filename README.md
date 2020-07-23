@@ -6,6 +6,11 @@ Responsive App for tracking  positive COVID-19 test in the USA for the last 28 d
 [Live  Demo
 ](https://covid-state-tracker.now.sh/)
 
+### Compatible
+  - Safari
+  - Chrome
+  - Firefox
+
 Build tools
 
  - HTML5
