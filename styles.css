@@ -11,31 +11,27 @@ body {
   margin: 0;
   font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
   background: #ededed;
-
 }
 
 header {
   background: #005eaa;
   color: white;
-  padding:20px;
+  padding: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-
 }
 
 h1 {
   margin: 0;
-
 }
 
-h2{
+h2 {
   text-align: center;
   color: #666;
   font-weight: bold;
   font-size: 27px;
   padding: 20px;
-
 }
 
 h4 {
@@ -44,40 +40,42 @@ h4 {
   margin: 15px;
 }
 
-
-
 footer {
   background: #005eaa;
   position: absolute;
   color: white;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    overflow: hidden;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
 }
 
 a {
   color: white;
   text-decoration: none;
-
 }
 
 ul {
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding: 0;
 }
 
+li {
+  padding: 10px;
+}
+
+
+/****** CLASS SELECTORS ******/
 div.canvas-container {
   margin: 50px auto;
 }
 
 div.widget {
   padding: 3px;
-
 }
-
 
 div.canvas-container {
   width: 95%;
@@ -95,16 +93,16 @@ div#container {
   margin: auto;
   max-width: 1200px;
   margin-bottom: 100px;
-
 }
 
+
+/****** ID SELECTORS ******/
 main#usa-container {
   width: 90%;
   display: block;
   margin: 0 auto;
   background: #FFFFFF;
   padding: 20px;
-
 }
 
 div#state-container {
@@ -120,44 +118,51 @@ div#widget-container, main#usa-container, div.choose-state-container {
   box-shadow: 0 6px 6px -6px black;
 }
 
-
 div#widget-container {
   width: 90%;
   margin: 1em auto;
   display: flex;
   flex-direction: column;
-  text-transform:  uppercase;
-
+  text-transform: uppercase;
 }
 
 
+select:hover{
+  cursor: pointer;
+}
+
+
+
+/*** Smooth screen roll ***/
+@media screen and (prefers-reduced-motion: no-preference) {
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+}
+
+
+
+/****** MEDIA Q ******/
+
 @media (min-width: 1000px) {
-
-
   div.choose-state-container {
     width: 45%;
   }
-
 
   div#widget-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 20px;
-
   }
 
   div#state-container {
     flex-direction: row;
-    justify-content:space-around;
+    justify-content: space-around;
   }
 
   main#usa-container, div#widget-container {
     width: 95%;
   }
-
-
-
-
-
 }

@@ -3,10 +3,10 @@
   const statesDailyUrl = "https://covidtracking.com/api/v1/states/daily.json";
 
 
+
   const usaCtx = document.getElementById("usa-chart");
   const chart1Ctx = document.getElementById("chart-one");
   const chart2Ctx = document.getElementById("chart-two");
-
 
 
   /**
@@ -43,15 +43,18 @@
    * @return no return
    */
   function addWidgetData(usaData) {
+    console.log(usaData)
     const {
       death,
       hospitalizedCumulative,
-      positive
+      positive,
+      recovered
     } = usaData[0];
-    const a = document.querySelectorAll("h4 span");
-    a[0].textContent = death;
-    a[1].textContent = hospitalizedCumulative;
-    a[2].textContent = positive;
+    const widgets = document.querySelectorAll("h4 span");
+    widgets[0].textContent = death;
+    widgets[1].textContent = hospitalizedCumulative;
+    widgets[2].textContent = positive;
+    widgets[3].textContent = recovered;
 
   }
 
@@ -383,7 +386,6 @@
 
 
   document.querySelector("div#state-container").addEventListener("change", e => {
-    console.log(e.target)
     const optionSelected = e.target.value;
     const parentOptionId = e.srcElement.id;
 
