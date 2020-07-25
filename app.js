@@ -1,9 +1,11 @@
+  // APIs
   const statesUrl = "https://covidtracking.com/api/states";
   const usaUrl = "https://covidtracking.com/api/us/daily";
   const statesDailyUrl = "https://covidtracking.com/api/v1/states/daily.json";
 
 
 
+  // Charts
   const usaCtx = document.getElementById("usa-chart");
   const chart1Ctx = document.getElementById("chart-one");
   const chart2Ctx = document.getElementById("chart-two");
@@ -57,7 +59,7 @@
 
     widgetTitles.forEach((widgetTitle, index) => {
       const widgetPlaceholder = widgetTitle === "hospitalizedCumulative" ? "hospitalized" : widgetTitle;
-      const widgetTemplate = createWidgetTemplate(widgetTitle, usaData);
+      const widgetTemplate = createWidgetTemplate(widgetPlaceholder, usaData);
       appendWidget(widgetTemplate);
 
     });
